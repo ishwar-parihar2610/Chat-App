@@ -1,10 +1,11 @@
-package com.example.chatapp;
+package com.example.chatapp.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.os.Bundle;
 
+import com.example.chatapp.R;
 import com.example.chatapp.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -13,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DataBindingUtil.setContentView(this, R.layout.activity_main);
+        binding=DataBindingUtil.setContentView(this, R.layout.activity_main);
 
     }
 }
