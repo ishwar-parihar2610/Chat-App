@@ -89,7 +89,6 @@ public class MainActivity extends AppCompatActivity implements UserListeners {
                 .addOnSuccessListener(unused -> {
                    preferenceManager.Clear();
                    startActivity(new Intent(getApplicationContext(),SignInActivity.class));
-
                 }).addOnFailureListener(e ->{
            showToast("Unable to Sign Out");
         });
@@ -120,6 +119,7 @@ public class MainActivity extends AppCompatActivity implements UserListeners {
                   user.email=queryDocumentSnapshot.getString(Constant.KEY_EMAIL);
                   user.image=queryDocumentSnapshot.getString(Constant.KEY_IMAGE);
                   user.token=queryDocumentSnapshot.getString(Constant.KEY_FCM_TOKEN);
+                  user.id=queryDocumentSnapshot.getId();
                   users.add(user);
 
               }
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements UserListeners {
 
     @Override
     public void onUserClick(user user) {
-        Intent intent=new Intent(getApplicationContext(),ChatActSivity.class);
+        Intent intent=new Intent(getApplicationContext(),ChatActivity.class);
         intent.putExtra(Constant.KEY_USER,user);
         startActivity(intent);
        

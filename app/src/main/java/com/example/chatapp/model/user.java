@@ -7,6 +7,8 @@ public class user implements Serializable {
     public String image;
     public String email;
     public String token;
+    public String id;
+
 
     public String getName() {
         return name;
