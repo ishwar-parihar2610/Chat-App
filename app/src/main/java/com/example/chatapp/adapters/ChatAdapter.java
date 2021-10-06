@@ -18,15 +18,18 @@ import com.example.chatapp.model.ChatMessage;
 
 import java.util.List;
 
-public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final List<ChatMessage> chatMessages;
-    private final Bitmap receiverProfileImage;
+    private  Bitmap receiverProfileImage;
     private final String senderID;
     private LayoutInflater inflater;
-    public static final int VIEW_TYPE_SENT=1;
-    public static final int VIEW_TYPE_RECEIVED=2;
+    public static final int VIEW_TYPE_SENT = 1;
+    public static final int VIEW_TYPE_RECEIVED = 2;
 
 
+    public void setReceiverProfileImage(Bitmap bitmap){
+    receiverProfileImage=bitmap;
+    }
     public ChatAdapter(List<ChatMessage> chatMessages, Bitmap receiverProfileImage, String senderID) {
         this.chatMessages = chatMessages;
         this.receiverProfileImage = receiverProfileImage;
@@ -34,30 +37,29 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     }
 
 
-
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType==VIEW_TYPE_SENT){
-            if (inflater==null){
-                inflater=LayoutInflater.from(parent.getContext());
+        if (viewType == VIEW_TYPE_SENT) {
+            if (inflater == null) {
+                inflater = LayoutInflater.from(parent.getContext());
             }
-            return new sentMessageViewHolder(DataBindingUtil.inflate(inflater, R.layout.send_message_layout,parent,false));
-        }else {
-            if (inflater==null){
-                inflater=LayoutInflater.from(parent.getContext());
+            return new sentMessageViewHolder(DataBindingUtil.inflate(inflater, R.layout.send_message_layout, parent, false));
+        } else {
+            if (inflater == null) {
+                inflater = LayoutInflater.from(parent.getContext());
             }
 
         }
-        return new ReceiverMessageViewHolder(DataBindingUtil.inflate(inflater,R.layout.received_message_layout,parent,false));
+        return new ReceiverMessageViewHolder(DataBindingUtil.inflate(inflater, R.layout.received_message_layout, parent, false));
     }
 
     @Override
-    public void onBindViewHolder( RecyclerView.ViewHolder holder, int position) {
-    if (getItemViewType(position)==VIEW_TYPE_SENT){
-        ((sentMessageViewHolder) holder).setData(chatMessages.get(position));
-    }else {
-        ((ReceiverMessageViewHolder) holder).setData(chatMessages.get(position),receiverProfileImage);
-    }
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if (getItemViewType(position) == VIEW_TYPE_SENT) {
+            ((sentMessageViewHolder) holder).setData(chatMessages.get(position));
+        } else {
+            ((ReceiverMessageViewHolder) holder).setData(chatMessages.get(position), receiverProfileImage);
+        }
     }
 
     @Override
@@ -67,9 +69,9 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     @Override
     public int getItemViewType(int position) {
-        if (chatMessages.get(position).senderId.equals(senderID)){
+        if (chatMessages.get(position).senderId.equals(senderID)) {
             return VIEW_TYPE_SENT;
-        }else {
+        } else {
             return VIEW_TYPE_RECEIVED;
         }
     }
@@ -87,6 +89,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             binding.textMessage.setText(chatMessage.message);
             binding.textDateTime.setText(chatMessage.dateTime);
 
+
         }
     }
 
@@ -101,7 +104,9 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         void setData(ChatMessage chatMessage, Bitmap receiverImageProfile) {
             binding.textReceiveMessage.setText(chatMessage.message);
             binding.textReceiveMessageDateAndTime.setText(chatMessage.dateTime);
-            binding.senderImageProfile.setImageBitmap(receiverImageProfile);
+            if (receiverImageProfile != null) {
+                binding.senderImageProfile.setImageBitmap(receiverImageProfile);
+            }
         }
     }
 

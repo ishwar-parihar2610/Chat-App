@@ -28,6 +28,7 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_in);
         preferenceManager = new PreferenceManager(getApplicationContext());
+
         if (preferenceManager.getBoolean(Constant.KEY_IS_SIGNED_IN)){
             Intent intent=new Intent(getApplicationContext(),MainActivity.class);
             startActivity(intent);

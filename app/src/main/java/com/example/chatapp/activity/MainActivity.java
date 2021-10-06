@@ -30,7 +30,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MainActivity extends AppCompatActivity implements UserListeners {
+public class MainActivity extends BaseActivity implements UserListeners {
     ActivityMainBinding binding;
     private PreferenceManager preferenceManager;
 
@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements UserListeners {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
     private void updateToken(String token){
+        preferenceManager.putString(Constant.KEY_FCM_TOKEN,token);
         FirebaseFirestore dataBase=FirebaseFirestore.getInstance();
         DocumentReference documentReference=dataBase.collection(Constant.KEY_COLLECTION_USERS).document(preferenceManager.getString(Constant.KEY_USER_ID));
         documentReference.update(Constant.KEY_FCM_TOKEN,token).addOnSuccessListener(unused -> {
